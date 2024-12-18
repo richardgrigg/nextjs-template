@@ -1,0 +1,96 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.nav-list {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-end;
+    list-style-type: none;
+    gap: 10px;
+}
+
+hgroup {
+    display: flex;
+    align-items: center;
+    gap: 50px;
+}
+
+hgroup > .club-header {
+    margin-top: 0;
+    margin-bottom: 0;
+    color: darkgray;
+    padding: 0.6rem;
+    vertical-align: middle;
+}
+
+.main {
+
+}
+
+.session-slot-container {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-around;
+    width: 100%;
+    border-color: forestgreen;
+    border-style: solid;
+    border-width: 1px;
+}
+
+.session {
+    display: grid;
+    grid-template-columns: 1fr 3fr 1fr;
+}
+
+.session-court-list {
+    display: flex;
+    flex-flow: row wrap;
+    align-content: space-around;
+    gap: 5px;
+}
+
+.session-court {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+    padding: 5px;
+    background-color: forestgreen;
+
+}
+
+.session-court > .title {
+    display:flex;
+    width:100%;
+ }
+
+.session-court >.side {
+    background-color: lightgreen;
+    padding: 10px;
+    border: 1px solid #696;
+    border-radius: 20px;
+
+}
+
+.session-court >.side>ul {
+    width: 50%;
+    color: red;
+    list-style-type: none;
+}
+
+.session-court >.side > ul > li {
+    width: max-content;
+
+}
+
+/* old session
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: space-evenly;
+        gap: 10px;
+        align-content: flex-start;
+*/
