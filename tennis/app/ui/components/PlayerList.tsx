@@ -20,7 +20,6 @@ export function filterPlayersByRating(players: Player[], rating: number) {
     return filteredPlayers;
 }
 
-
 export function buildCourts(totalCourts: number) {
     const tennisCourts : TennisCourt[] = [];
     for (let index = 1; index >= totalCourts; index++) {
@@ -47,8 +46,8 @@ export function reservePlaces(testSocial:SocialSession) {
 }
 
 
-function shuffle(array) {
-    let currentIndex = array.length;
+function shufflePlayers(player: Player[]) {
+    let currentIndex = player.length;
   
     // While there remain elements to shuffle...
     while (currentIndex != 0) {
@@ -58,20 +57,26 @@ function shuffle(array) {
       currentIndex--;
   
       // And swap it with the current element.
-      [array[currentIndex], array[randomIndex]] = [
-        array[randomIndex], array[currentIndex]];
+        [player[currentIndex], player[randomIndex]] = [
+            player[randomIndex], player[currentIndex]];
     }
   }
 
-  
 export function buildSession(sortOptions: SortOptions) {
     const testSocial:SocialSession  = testSocialSession();
-
     reservePlaces(testSocial);
 
     // Build matches based on rating descending from strongest players to weakest
     testSocial.registeredPlayers.sort((a, b) => b.rating - a.rating);
 
+    /*
+    SortType {
+        RND = 'Random', 
+        BAL = 'Balanced',
+        MAR = 'Mars',
+        VEN = 'Venus'
+    }
+    */
     switch ( sortOptions.sort_type ) {
         case SortType.BAL:
             // statement 1
@@ -79,8 +84,11 @@ export function buildSession(sortOptions: SortOptions) {
         case SortType.RND:
             // statement 2
             break;
-        case SortType.TRN:
-            // statement N
+        case SortType.MAR:
+            // statement 3
+            break;
+        case SortType.VEN:
+            // statement 4
             break;
         default: 
             // 
@@ -96,22 +104,33 @@ export function buildSession(sortOptions: SortOptions) {
         // Sort by rating strongest first
         males.sort((a, b) => b.rating - a.rating);
         females.sort((a, b) => b.rating - a.rating);    
-        let low_rating: number = 0;
-        let high_rating: number = 0;
         
+        // Ratings Map
+        let ratings = new Map();
 
-        
-        if(males.length > 0) {
-            high_rating = males[0].rating;
-            low_rating = males.length -1;
+        // Average rating
+        let average = 0;
 
 
+        for( let i = 0; i < males.length; i++) {
+            
+            const rating = males[i].rating;
+            average += rating;
+            
+            // Add number of total males with that rating to the count or  
+            ratings.has(rating)? ratings.set(rating, ratings.get(rating) + 1): ratings.set(rating, 1);
         }
 
-        if(females.length > 0) {
-            high_rating = females[0].rating;
-            low_rating = females.length -1;            
+        // Calculate Average rating
+        average = average / males.length;
+
+        for (let i = 0; i < females.length; i++) {
+            const rating = females[i].rating;
+            // Add number of total males with that rating to the count or  
+            ratings.has(rating) ? ratings.set(rating, ratings.get(rating) + 1) : ratings.set(rating, 1);
         }
+
+        // Juggle each list of players of a certain rating
 
         
 
@@ -128,12 +147,10 @@ export default function PlayerList() {
     const socialSession: SocialSession = buildSession(sortOptions);
     const players: Player[] = socialSession.registeredPlayers;
     const reserves: Player[] = socialSession.reserves;
-    
 
     if(players.length == 0) {
         console.log('Player list was empty')
     }
-
 
     return (
         <div>

@@ -12,10 +12,25 @@ export class Player {
     }
 }
 
+/*
+Algoirthm prioritises pairs as follows. 
+
+ALWAYS identifies beginners and pairs with top rated players first and then applies SortType as follows
+
+Random - completely at random disregards gender
+Balanced - strongest players and the weakest disregards gender
+Mars - strongest men with weakest women first
+Venus - strongest women with weakest men first
+
+Gender - prioritises matches of all men and all women and then mixes whats left (still uses rating and balanced)
+
+*/
+
 export enum SortType {
-    RND = 'RANDOM',
+    RND = 'Random', 
     BAL = 'Balanced',
-    TRN = 'Training'
+    MAR = 'Mars',
+    VEN = 'Venus'
 }
 
 export class SortOptions{
