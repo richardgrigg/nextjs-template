@@ -1,0 +1,28 @@
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <script src="https://github.com/niklasvh/html2canvas/releases/download/v1.4.1/html2canvas.min.js"></script>
+  </head>
+  <body>
+    <div id="myDiv" style="background-color: #f5f5f5; padding: 10px">
+      <h1>Hello, World!</h1>
+      <p>This is a sample paragraph.</p>
+    </div>
+    <script>
+      var element = document.getElementById('myDiv');
+      var canvas = document.createElement('canvas');
+      canvas.width = element.offsetWidth;
+      canvas.height = element.offsetHeight;
+      html2canvas(element, {}).then(function (canvas) {
+        var ctx = canvas.getContext('2d');
+        ctx.drawImage(canvas, 0, 0);
+        var dataURL = canvas.toDataURL();
+        console.log(dataURL);
+
+        const img = document.createElement('img');
+        img.src = dataURL;
+        document.body.appendChild(img);
+      });
+    </script>
+  </body>
+</html>

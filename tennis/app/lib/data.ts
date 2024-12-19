@@ -1,13 +1,9 @@
 import {
     Player,
-    SortType,
-    DoublesTeam,
-    TennisCourt,
     TennisMatch,
     SocialSession,
 } from './definitions';
 
-import { SortOptions, } from '@/app/lib/definitions';
 
 export function testSocialSession() {
     const registeredPlayers: Player[] = testPlayerListFull();
