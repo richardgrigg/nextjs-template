@@ -11,6 +11,16 @@ export function filterPlayersByGender(players: Player[], gender: string) {
     return filteredPlayers;
 }
 
+export function filterPlayersByRating(players: Player[], rating: number) {    
+
+    let filteredPlayers: Player[] = [];
+    filteredPlayers = players.filter( function(player) {
+        return player.rating == rating;    
+    });    
+    return filteredPlayers;
+}
+
+
 export function buildCourts(totalCourts: number) {
     const tennisCourts : TennisCourt[] = [];
     for (let index = 1; index >= totalCourts; index++) {
@@ -35,6 +45,7 @@ export function reservePlaces(testSocial:SocialSession) {
           }
     }
 }
+
 
 function shuffle(array) {
     let currentIndex = array.length;
@@ -85,6 +96,25 @@ export function buildSession(sortOptions: SortOptions) {
         // Sort by rating strongest first
         males.sort((a, b) => b.rating - a.rating);
         females.sort((a, b) => b.rating - a.rating);    
+        let low_rating: number = 0;
+        let high_rating: number = 0;
+        
+
+        
+        if(males.length > 0) {
+            high_rating = males[0].rating;
+            low_rating = males.length -1;
+
+
+        }
+
+        if(females.length > 0) {
+            high_rating = females[0].rating;
+            low_rating = females.length -1;            
+        }
+
+        
+
     }
 
     return testSocial;
