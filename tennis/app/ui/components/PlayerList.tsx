@@ -1,28 +1,16 @@
-import { Session } from "inspector/promises";
 import { SocialSession, Player, SortOptions, TennisMatch, DoublesTeam } from '@/app/lib/definitions';
 import { testSocialSession } from '@/app/lib/data';
 
+export function filterPlayersByGender(players: Player[], gender: String) {    
 
-/*
-    Sorting Options
-    1) Random - completely random sides
-    2) Balanced - produce competitive matches - weaker players vs weaker players and strong vs strong
-    3) Training - make sides composed of Very strong and very week players and pitch them against each other
-*/
+    let filteredPlayers: Player[] = [];
+    filteredPlayers = players.filter( function(player) {
+        return player.gender == gender;    
+    });    
+    return filteredPlayers;
+}
 
 export function buildSession(players: Player[], sortOptions: SortOptions) {
-
-    function filterPlayersByGender(players: Player[], gender: String) {
-    {
-        let filteredPlayers: Player[] = [];
-
-        filteredPlayers = players.filter( function(player) {
-            return player.gender == gender;    
-        });
-        
-        return filteredPlayers;
-    }}
-
 
     if(sortOptions.prefer_mixed) {
 
@@ -45,13 +33,8 @@ export function buildSession(players: Player[], sortOptions: SortOptions) {
         console.log(males);
         console.log(females);
 
-
-
     }
 
-    return (
-        <div></div>
-    )
 
 }
 
@@ -61,9 +44,6 @@ export default function PlayerList({
 }: {
     players: Player[];
 }) {
-
-
-
     return (
         <div>
             <ol className='flex flex-row wrap'>
