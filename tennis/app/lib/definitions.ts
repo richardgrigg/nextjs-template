@@ -88,7 +88,7 @@ export class SocialSession {
         this.totalCourts = totalCourts;
 
         if(registeredPlayers.length > (totalCourts * 4) ) {
-            
+
         }
         this.registeredPlayers = registeredPlayers;
     }

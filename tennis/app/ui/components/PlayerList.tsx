@@ -60,8 +60,8 @@ function shufflePlayers(player: Player[]) {
         [player[currentIndex], player[randomIndex]] = [
             player[randomIndex], player[currentIndex]];
     }
-  }
-
+}
+  
 export function buildSession(sortOptions: SortOptions) {
     const testSocial:SocialSession  = testSocialSession();
     reservePlaces(testSocial);
@@ -93,7 +93,7 @@ export function buildSession(sortOptions: SortOptions) {
         default: 
             // 
             break;
-     }
+    }
 
     if(sortOptions.prefer_mixed) {
 
@@ -132,7 +132,7 @@ export function buildSession(sortOptions: SortOptions) {
 
         // Juggle each list of players of a certain rating
 
-        
+
 
     }
 
@@ -147,7 +147,7 @@ export default function PlayerList() {
     const socialSession: SocialSession = buildSession(sortOptions);
     const players: Player[] = socialSession.registeredPlayers;
     const reserves: Player[] = socialSession.reserves;
-
+    
     if(players.length == 0) {
         console.log('Player list was empty')
     }
