@@ -1,18 +1,44 @@
 import {
     Player,
     TennisMatch,
-    SocialSession,
+    SessionSlot,
+    DayOfWeek,
+    TennisSession,
+    TennisClub
 } from './definitions';
 
+import { getNextDayOfWeek } from './utils';
 
-export function testSocialSession() {
+export function getTennisClub(id: number) {
+
+    // create test Club (should be replaced with db call)
+    let tennisClub : TennisClub = new TennisClub(1,'Redbourne Tennis Club');
+    return tennisClub;
+}
+
+export function getTennisSessions(tennisClub: TennisClub, sessionDate: Date) {
+    const tennisSessions: TennisSession[] = [];
+    
+    // Create Test Session (should be replaced with db call)
+    const exampleCourts: number = 4
+    const sessionSlot : SessionSlot = testUnfilledSessionSlot(1, exampleCourts);
+    const session = new TennisSession(1, tennisClub.id, getNextDayOfWeek(DayOfWeek.FRIDAY),[sessionSlot]);
+
+
+    tennisSessions.push(session);
+
+    return tennisSessions;
+}
+
+
+export function testUnfilledSessionSlot(sessionId: number, totalCourts: number) {
     const registeredPlayers: Player[] = testPlayerListFull();
     const reserves: Player[] = [];
     const tennisMatches: TennisMatch[] = [];
-    const socialSession = new SocialSession(1, tennisMatches, registeredPlayers, reserves, 4);
-    return socialSession;
-}
+    const sessionSlot = new SessionSlot(sessionId, tennisMatches, registeredPlayers, reserves, totalCourts);
 
+    return sessionSlot;
+}
 
 function testPlayerListFull() {
 

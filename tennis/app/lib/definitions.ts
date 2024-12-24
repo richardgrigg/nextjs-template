@@ -33,6 +33,16 @@ export enum SortType {
     VEN = 'Venus'
 }
 
+export enum DayOfWeek {
+    SUNDAY = 0, 
+    MONDAY = 1,
+    TUESDAY = 2,
+    WEDNESDAY = 3,
+    THURSDAY = 4,
+    FRIDAY = 5,
+    SATURDAY = 6
+}
+
 export class SortOptions{
     prefer_mixed: boolean;
     sort_type: SortType;
@@ -54,27 +64,56 @@ export class DoublesTeam {
     }
 }
 
+export class TennisClub{
+    id: number;
+    name: string;
+
+    constructor(id: number, name: string) {
+        this.id = id;
+        this.name = name;
+    }
+}
+
 export class TennisCourt{
+    tennisClubId: number;
     courtNumber: number;
 
-    constructor(courtNumber: number) {
+    constructor(tennisClubId: number, courtNumber: number) {
+        this.tennisClubId = tennisClubId;
         this.courtNumber = courtNumber;
+
     }
 }
 
 export class TennisMatch {
+    id: number;
     court: TennisCourt;
     team1: DoublesTeam;
     team2: DoublesTeam;
 
-    constructor(court: TennisCourt, team1: DoublesTeam, team2: DoublesTeam ) {
+    constructor(id: number, court: TennisCourt, team1: DoublesTeam, team2: DoublesTeam ) {
+        this.id = id;
         this.court = court;
         this.team1 = team1;
         this.team2 = team2;
     }
 }
 
-export class SocialSession {
+export class TennisSession {
+    id: number;
+    tennisClubId: number;
+    sessionDate: Date;
+    sessionSlots: SessionSlot[];
+    constructor(id:number, tennisClubId: number, sessionDate: Date, sessionSlots: SessionSlot[]) {
+        this.id = id;
+        this.tennisClubId = tennisClubId;
+        this.sessionDate = sessionDate;
+        this.sessionSlots = sessionSlots;
+    }
+
+}
+
+export class SessionSlot {
     id: number;
     matches: TennisMatch[];
     registeredPlayers: Player[] = [];
@@ -86,10 +125,6 @@ export class SocialSession {
         this.matches = matches;
         this.reserves = reserves;
         this.totalCourts = totalCourts;
-
-        if(registeredPlayers.length > (totalCourts * 4) ) {
-
-        }
         this.registeredPlayers = registeredPlayers;
     }
 }
